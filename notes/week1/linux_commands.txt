@@ -1,0 +1,86 @@
+What is DevSecOps
+
+DevOps is the process of building, testing, deploying the applications continuously.
+Basically, we can deploy and test the application on the same day with multiple tools to make the process smooth. 
+We can achieve integration, testing, deploying, monitoring, application security and many using DevOps process. 
+
+
+One my first notice, in order to become DevOps Engineer I came to know that we should be perfect in linux commands. 
+Hence, I started understanding linux and its commands as a basic task. 
+
+Below are the multiple commands that i have learned. These might be simple for some people, but it is better learn from beginning to make perfect. 
+
+$ ls    				                            -> To list the files and folders in the current directory
+$ ls -la  				                            -> to list the files and folder along with hidden files in details format
+$ uname  				                            -> Tells the OS name
+$ man uname 				                        -> Shows the details information of the OS
+$ touch <file-name>			                        -> To create file
+$ mkdir <folder-name>			                    -> To create folder
+$ cat <file-Name>			                        -> To show the content of the file
+$ cat > <file-name>			                        -> To add the content in the file
+$ cat >> <file-name>			                    -> To append the content in the file
+$ cp <source> <destination>		                    -> To copy the file/folder to the given destination
+$ mv <source> <destination>		                    -> To move the file/folder to the given destination
+
+
+
+
+Downloads:
+---------
+$ wget <https url to downlad any file/tar.gz>    				-> To download anything from the web
+$ curl <any web url>								            -> To show the content on the machine, but it won't download
+
+
+$ grep <any-string> <file-name>							        -> To search any string from the given file
+$ grep '<any-string>$' <file-name>						        -> To search a string ending with the given string from the given file
+$ grep '^<any-string>' <file-name> 						        -> To search a string beginning with the given string from the given file
+
+$ head <file-name> 								                -> Displays top 10 lines
+$ tail <file-name> 								                -> Displays bottom 10 lines
+$ tail -f <file-name>								            -> Displays running file till we stop (simplay follow the file) mainly used to trace the logs
+
+Divide the String
+=================
+$ echo "Mahesh,Babu,Neeli" | cut -d ','  -f1,3                  -> Cut the given string in fragments
+  Mahesh,Neeli
+$ echo "Mahesh,Babu,Neeli" | awk -F "," '{print $NF}'           -> awk is also used for divide the string using delimeter., but it has some advanced features
+  Neeli
+$ echo "Mahesh:Babu:Neeli" | awk -F ":" '{print $1F, $2F}'
+  Mahesh Babu
+
+
+vim - VI Improved
+=================
+$ vim <file-name>                                       -> To create a file and open in vi mode for writing, but it is in ESC mode.
+    press i                 - to write
+    press esc and :wq       - to write and quit
+    press esc and :q        - to quite
+    press esc and q!        - to force quit
+
+
+    Command mode
+    ============
+    : set nu                - set line numbers
+    : <line-number>         - go to that particular line
+    : /<string>             - to search a string from the top to bottom
+    : ?<string>             - to search a string from bottom to top
+    : %d                    - delete everything from the file
+    : noh                   - no highlight
+
+    Search commands
+    ===============
+    : s/<word-to-find>/<replace-word>                       - search a string and replace, it replace only the first match
+    : <line-number>s/<word-to-find>/<replace-word>          - search a string from the given line and replace only the first match
+    : <line-number>s/<word-to-find>/<replace-word>/g        - search a string from the given line and replace all the match words
+    : %s/<word-to-find>/<replace-word>/g                    - search a string from the entire file and replace all the match words
+
+    ESC Mode Shortcuts
+    ==================
+    gg              - take to top of the file
+    shift + g       - take to bottom of the file
+    u               - undo
+    ctrl + r        - redo
+    dd              - delete the entire line
+    yy              - copy the line
+    p               - paste below the line
+    shift + p       - paster above the line
