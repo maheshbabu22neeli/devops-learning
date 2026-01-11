@@ -83,4 +83,4 @@ $ vim <file-name>                                       -> To create a file and 
     dd              - delete the entire line
     yy              - copy the line
     p               - paste below the line
-    shift + p       - paster above the line
+    shift + p       - paste above the line

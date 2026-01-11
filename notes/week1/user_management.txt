@@ -1,0 +1,112 @@
+What is User Management in Linux?
+
+User Management in Linux is the process of Creating, Modifying, and Controlling user accounts
+and their permissions to ensure system security and proper access control.
+
+It defines,
+- Who can login
+- What they can access
+- What actions they can perform
+
+
+Lets see how to create a user and groups and give password based authentication
+================================================================================
+Will understand a particular scenario, example "employee John joined in a company"
+
+1. Will create username for John
+2. Will assign John to a particular group, ex: dev, testing, support, devops etc. Assume John belongs to support group
+3. Will create password to John
+4. Will give sudo access to John
+5. Will remove sudo access and give only System control access to run particular commands
+6. If John resigns,
+7. Lock John access first
+8. Remove John from support group and bring to the original state (on create state)
+9. Delete John account
+
+
+We will achieve above scenarios by using the linux commands:
+------------------------------------------------------------
+To achieve this I am using the AWS EC2 Linux.
+I have logged into the AWS Console and created a EC2 instance and connecting from my local machine using ssh authentication
+
+Note: Only root user can create users
+- Hence moving to sudo access
+
+$ sudo su -
+[root@ip-<IP-ADDRESS> ~]# useradd john                                  - Create the user john
+
+[root@ip-<IP-ADDRESS> ~]# id john                                       - Verify John Id (here, john has added to default group called john)
+uid=1001(john) gid=1001(john) groups=1001(john)
+
+[root@ip-<IP-ADDRESS> ~]# cat /etc/passwd                               - To view all Users
+.........
+.........
+.........
+.........
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+john:x:1001:1001::/home/john:/bin/bash                                  - john details present here
+
+Now, I want to create two groups
+    1. support
+    2. dev
+
+[root@ip-<IP-ADDRESS> ~]# groupadd support                              - support group created
+[root@ip-<IP-ADDRESS> ~]# groupadd dev                                  - dev group created
+
+I want to assign john primary group as support
+[root@ip-<IP-ADDRESS> ~]# usermod -g support john                       - assign support as primary group
+[root@ip-<IP-ADDRESS> ~]# id john
+uid=1001(john) gid=1002(support) groups=1002(support)
+
+I want to assign john secondary group as dev
+[root@ip-<IP-ADDRESS> ~]# usermod -aG dev john                          - assign dev as secondary group
+[root@ip-<IP-ADDRESS> ~]# id john
+uid=1001(john) gid=1002(support) groups=1002(support),1003(dev)
+
+
+[root@ip-<IP-ADDRESS> ~]# cat /etc/passwd                               - Now view users again
+...........
+...........
+...........
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+john:x:1001:1002::/home/john:/bin/bash
+
+
+[root@ip-<IP-ADDRESS> ~]# id john                                       - View john id
+uid=1001(john) gid=1002(support) groups=1002(support),1003(dev)
+
+
+Till here we have created user, groups and assigned the user to group.
+Now, we will create password to user
+[root@ip-<IP-ADDRESS> ~]# passwd john                                   - Now give the New password and Retype password
+passwd: all authentication tokens updated successfully.
+
+Note: By default, Linux will disable the Password based authentication.
+
+In order to enable password authentication, we have configure PasswordAuthentication as 'yes' in /etc/ssh/sshd_config file
+Default, it looks as "PasswordAuthentication no", we have to modify as "PasswordAuthentication yes"
+
+# vim /etc/ssh/sshd_config                                              - do the necessary modification and save using :wq!
+# systemctl restart sshd                                                - Restart sshd to reflect new changes
+
+- Now, we will ask the user to login to our ec2-instance
+- Open a new git-bash which is user bash.
+$ ssh john@<EC2 IP>
+john@<EC2 IP>'s password:                                         - john successfully logged in
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+[john@ip-<EC2 IP> ~]$
+
+
+
+
+
+
