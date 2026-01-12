@@ -5,29 +5,32 @@ and their permissions to ensure system security and proper access control.
 
 It defines,
 - Who can login
-- What they can access
-- What actions they can perform
+- What resources they can access
+- What actions they are allowed to perform
 
 
 Lets see how to create a user and groups and give password based authentication
 ================================================================================
 Will understand a particular scenario, example "employee John joined in a company"
 
-1. Will create username for John
-2. Will assign John to a particular group, ex: dev, testing, support, devops etc. Assume John belongs to support group
-3. Will create password to John
-4. Will give sudo access to John
-5. Will remove sudo access and give only System control access to run particular commands
-6. If John resigns,
-7. Lock John access first
-8. Remove John from support group and bring to the original state (on create state)
-9. Delete John account
-
+1. Create a user account for John
+2. Assign John to a group (assume he belongs to the support team)
+3. Set a password for John
+4. Grant sudo access to John
+5. Later, remove sudo access and allow only limited command execution
+6. If John resigns:
+        - Lock his account
+        - Remove him from the support group
+        - Restore his original state
+        - Delete his account
 
 We will achieve above scenarios by using the linux commands:
 ------------------------------------------------------------
-To achieve this I am using the AWS EC2 Linux.
-I have logged into the AWS Console and created a EC2 instance and connecting from my local machine using ssh authentication
+Environment Setup
+--------------------
+We are using an AWS EC2 Linux instance.
+    - The EC2 instance is created from the AWS Console
+    - We connect to it from a local machine using SSH authentication
 
 Note: Only root user can create users
 - Hence moving to sudo access
