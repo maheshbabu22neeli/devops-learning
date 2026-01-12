@@ -1,0 +1,33 @@
+We already know that how to create user's.
+Now lets see how to give permissions to any file/folder to the users.
+
+Here we have three different types of access.
+
+1. READ         - denoted by r      - permission in numeric 4
+2. WRITE        - denoted by w      - permission in numeric 2
+3. EXECUTE      - denoted by x      - permission in numeric 1
+
+-                   rwx                     rwx             rwx
+(file/directory)    (owner/user) - u        (group) - g     (others) - o
+
+Assume we have file in our system.
+
+$ ls
+permissions.txt
+
+
+$ chmod u+w permissions.txt                  - Give write access to Owner
+
+$ chmod o+x permissions.txt                  - Give execute access to Others
+
+$ chmod o-r permissions.txt                  - Remove read access to Others
+
+$ chmod 777 permissions.txt                  - Give rwx access to Owner, Group and Others
+
+$ chmod 600 permissions.txt                  - Give read and write access to User/Owner
+
+$ chmod 641                                  - Give read,write access to Owner/User and read access to Group and execute access to Others
+
+Note: Either OWNER or ROOT user can change the permissions/access levels
+
+

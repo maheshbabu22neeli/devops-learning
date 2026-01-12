@@ -95,7 +95,7 @@ Default, it looks as "PasswordAuthentication no", we have to modify as "Password
 - Now, we will ask the user to login to our ec2-instance
 - Open a new git-bash which is user bash.
 $ ssh john@<EC2 IP>
-john@<EC2 IP>'s password:                                         - john successfully logged in
+john@<EC2 IP>'s password:                                               - john successfully logged in
    ,     #_
    ~\_  ####_        Amazon Linux 2023
   ~~  \_#####\
