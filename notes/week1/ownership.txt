@@ -1,0 +1,193 @@
+Note - Only root user can change the ownership
+
+$ sudo chown <user>:<group> <file-name>
+
+Example:
+-------
+[root@ip-<EC2 IP ADDRESS> devops]# ls -l
+total 0
+-rw-r--r--. 1 root root 0 Jan 12 06:42 permissions.txt          - here default the user is root and group is root.
+
+[root@ip-<EC2 IP ADDRESS> devops]# id john                         - Display John ID details
+uid=1001(john) gid=1002(support) groups=1002(support),1003(testing)
+
+[root@ip-<EC2 IP ADDRESS> devops]# ls -la                          - List file and folders
+total 0
+drwxr-xr-x. 2 root root  29 Jan 12 06:42 .
+dr-xr-x---. 4 root root 117 Jan 12 06:41 ..
+-rwxrwxrwx. 1 root root   0 Jan 12 06:42 permissions.txt            - The user and group here is 'root'
+
+[root@ip-<EC2 IP ADDRESS> devops]# chown john:testing permissions.txt  - Assign user as John, Group as testing
+
+[root@ip-<EC2 IP ADDRESS> devops]# ls -la
+total 0
+drwxr-xr-x. 2 root root     29 Jan 12 06:42 .
+dr-xr-x---. 4 root root    117 Jan 12 06:41 ..
+-rwxrwxrwx. 1 john testing   0 Jan 12 06:42 permissions.txt         - Here we can see the output
+
+[root@ip-<EC2 IP ADDRESS> devops]#
+
+This is how we can change the ownership.
+
+
+Previously we have learned Username/Password authentication to User
+Now we will see how to create Key-based authentication to User.
+
+Scenario: Assume John joined in our company we have to allow him to login our system using key-based authentication
+
+Steps:
+------
+1. Ask John to generate SSH key from his laptop
+2. Send the public key to Company Admin to allow ssh connection
+3. At the background, the admin will create user with name 'john'
+4. Admin might automatically create join home folder "/home/john"
+5. Create .ssh folder at /home/john.
+6. Create a file called "authorized_keys" at /home/john/.ssh
+7. Copy and paste the public key of john using vim command "# vim authorized_keys".
+8. Change the ownership for the .ssh file to John only.
+9. And ask John to login using command "$ ssh -i <private-key-path>" john@<IPADDRESS>.
+
+
+Below is the step by step process using commands
+-------------------------------------------------
+
+=============== Begin in John Laptop ============
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$ ssh-keygen -f john-sshkey                                                 - John created his public and private keys
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in john-sshkey
+Your public key has been saved in john-sshkey.pub
+The key fingerprint is:
+SHA256:/+lu7IlhkTisLWicYtwRw3W9GO9OiTM/TmOCaWv5/D0 mahes@Mahesh-PC
+The key's randomart image is:
++---[RSA 3072]----+
+|      . ..       |
+|   . . .. .      |
+|    +    + .     |
+|     o ...o.     |
+|    .   Soo.     |
+| . o + =+o+.     |
+|  + * *.o*B.     |
+| . o .o+ =+*Eo   |
+|     ...oo+*O.   |
++----[SHA256]-----+
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$ ls -lrts
+total 5
+4 -rw-r--r-- 1 mahes 197609 2602 Jan 13 16:49 john-sshkey                       - Private Key
+1 -rw-r--r-- 1 mahes 197609  569 Jan 13 16:49 john-sshkey.pub                   - Public Key
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$
+
+note: John Shared his public key with Admin
+
+=============== Ended in John Laptop ============
+
+=============== Begin Root User =================
+[ec2-user@ip-<EC2-Private IP> ~]$ sudo su -                            - Access as SUDO
+
+[root@ip-<EC2-Private IP> ~]# useradd john                             - John Account Created
+
+[root@ip-<EC2-Private IP> ~]# id john
+uid=1001(john) gid=1001(john) groups=1001(john)                        - List John Details
+
+[root@ip-<EC2-Private IP> ~]# cd /home/john                            - On create the John account, by default his home directory also creates
+
+[root@ip-<EC2-Private IP> john]# mkdir .ssh                            - Created .ssh folder under /home/john
+[root@ip-<EC2-Private IP> john]#
+[root@ip-<EC2-Private IP> john]#
+[root@ip-<EC2-Private IP> john]# cd .ssh/                              - Go to .ssh folder
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]# touch authorized_keys                 - Under .ssh folder please create authorized_key file
+[root@ip-<EC2-Private IP> .ssh]# vim authorized_keys                   - Open the file using vim command and past the public key here for ssh connection
+                                                                       - save by :wq
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]# ls -la                                - List the file
+total 4
+drwxr-xr-x. 2 root root  29 Jan 13 05:51 .
+drwx------. 3 john john  74 Jan 13 05:50 ..
+-rw-r--r--. 1 root root 569 Jan 13 05:51 authorized_keys
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]# chmod 600 authorized_keys             - Give rw access only.
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]# ls -la
+total 4
+drwxr-xr-x. 2 root root  29 Jan 13 05:51 .
+drwx------. 3 john john  74 Jan 13 05:50 ..
+-rw-------. 1 root root 569 Jan 13 05:51 authorized_keys                - Still you can see the owner and group as root.
+                                                                        - We don't want anyone to access on John Authorised Keys
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> .ssh]# chown john:john authorized_keys       - Hence Change the owner ship to John
+[root@ip-<EC2-Private IP> .ssh]#
+[root@ip-<EC2-Private IP> john]# chmod 700 .ssh                        - Give rwx access only to John for .ssh folder
+[root@ip-<EC2-Private IP> john]#
+
+[root@ip-<EC2-Private IP> john]# chown john:john .ssh                  - Change the ownership of .ssh folder only to john
+[root@ip-<EC2-Private IP> john]#
+[root@ip-<EC2-Private IP> john]#
+[root@ip-<EC2-Private IP> john]# ls -la
+total 12
+drwx------. 3 john john  74 Jan 13 05:50 .
+drwxr-xr-x. 4 root root  34 Jan 13 05:45 ..
+-rw-r--r--. 1 john john  18 Jan 28  2023 .bash_logout
+-rw-r--r--. 1 john john 141 Jan 28  2023 .bash_profile
+-rw-r--r--. 1 john john 492 Jan 28  2023 .bashrc
+drwx------. 2 john john  29 Jan 13 05:51 .ssh                           - You can find here, John is the only person who have access to .ssh
+[root@ip-<EC2-Private IP> john]#
+
+Now, we can ask John to login using his private key. 
+
+=============== Ended Root User =================
+
+
+=============== Begin in John Laptop Again ============
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$
+
+mahes@Mahesh-PC MINGW64 /c/devops/john
+$ ssh -i john-sshkey john@<EC2-Public IP>                               - John able to login using his private key.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+[john@ip-<EC2-Private IP> ~]$
+
+
+=============== Ended in John Laptop Again ============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,11 +22,11 @@ $ chmod o+x permissions.txt                  - Give execute access to Others
 
 $ chmod o-r permissions.txt                  - Remove read access to Others
 
-$ chmod 777 permissions.txt                  - Give rwx access to Owner, Group and Others
+$ chmod 777 permissions.txt                  - Give rwx access to Owner, Group and Others (4+2+1)00
 
-$ chmod 600 permissions.txt                  - Give read and write access to User/Owner
+$ chmod 600 permissions.txt                  - Give read and write access to User/Owner (4+2)00
 
-$ chmod 641                                  - Give read,write access to Owner/User and read access to Group and execute access to Others
+$ chmod 641                                  - Give read,write access to Owner/User and read access to Group and execute access to Others (4+2)41
 
 Note: Either OWNER or ROOT user can change the permissions/access levels
 
