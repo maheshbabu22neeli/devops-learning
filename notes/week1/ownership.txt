@@ -33,6 +33,8 @@ This is how we can change the ownership.
 Previously we have learned Username/Password authentication to User
 Now we will see how to create Key-based authentication to User.
 
+
+*******************************************************************************************************************
 Scenario: Assume John joined in our company we have to allow him to login our system using key-based authentication
 
 Steps:
@@ -175,8 +177,7 @@ $ ssh -i john-sshkey john@<EC2-Public IP>                               - John a
 
 
 =============== Ended in John Laptop Again ============
-
-
+***********************************************************************************************************************
 
 
 

@@ -1,0 +1,171 @@
+Process Management:
+===================
+In Linux, every task has its own process whether it is small task or big task.
+And each task has it is own ID known as PID.
+And each task will be called or triggered by parent id known as PPID.
+
+
+
+[root@ip-<EC2-Private IP> ~]# ps                            - Display currently running tasks with PID
+    PID TTY          TIME CMD
+   1749 pts/1    00:00:00 sudo
+   1750 pts/1    00:00:00 su
+   1751 pts/1    00:00:00 bash
+   1772 pts/1    00:00:00 ps
+[root@ip-<EC2-Private IP> ~]# ps -ef                        - Display detail information of running tasks along with PID and PPID
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize=32
+root           2       0  0 02:29 ?        00:00:00 [kthreadd]
+root           3       2  0 02:29 ?        00:00:00 [rcu_gp]
+root           4       2  0 02:29 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 02:29 ?        00:00:00 [slub_flushwq]
+root           6       2  0 02:29 ?        00:00:00 [netns]
+root           7       2  0 02:29 ?        00:00:00 [kworker/0:0-cgroup_bpf_destroy]
+root           8       2  0 02:29 ?        00:00:00 [kworker/0:0H-events_highpri]
+root           9       2  0 02:29 ?        00:00:00 [kworker/u4:0-writeback]
+root          10       2  0 02:29 ?        00:00:00 [mm_percpu_wq]
+root          11       2  0 02:29 ?        00:00:00 [rcu_tasks_kthread]
+root          12       2  0 02:29 ?        00:00:00 [rcu_tasks_rude_kthread]
+root          13       2  0 02:29 ?        00:00:00 [rcu_tasks_trace_kthread]
+root          14       2  0 02:29 ?        00:00:00 [ksoftirqd/0]
+root          15       2  0 02:29 ?        00:00:00 [rcu_preempt]
+root          16       2  0 02:29 ?        00:00:00 [migration/0]
+root          17       2  0 02:29 ?        00:00:00 [kworker/0:1-cgroup_release]
+root          18       2  0 02:29 ?        00:00:00 [cpuhp/0]
+root          19       2  0 02:29 ?        00:00:00 [cpuhp/1]
+root          20       2  0 02:29 ?        00:00:00 [migration/1]
+root          21       2  0 02:29 ?        00:00:00 [ksoftirqd/1]
+root          22       2  0 02:29 ?        00:00:00 [kworker/1:0-cgroup_free]
+root          23       2  0 02:29 ?        00:00:00 [kworker/1:0H-events_highpri]
+root          25       2  0 02:29 ?        00:00:00 [kworker/u4:1-events_unbound]
+root          26       2  0 02:29 ?        00:00:00 [kdevtmpfs]
+root          27       2  0 02:29 ?        00:00:00 [inet_frag_wq]
+root          28       2  0 02:29 ?        00:00:00 [kauditd]
+root          29       2  0 02:29 ?        00:00:00 [khungtaskd]
+root          30       2  0 02:29 ?        00:00:00 [oom_reaper]
+root          31       2  0 02:29 ?        00:00:00 [kworker/u4:2-writeback]
+root          32       2  0 02:29 ?        00:00:00 [writeback]
+root          33       2  0 02:29 ?        00:00:00 [kcompactd0]
+root          34       2  0 02:29 ?        00:00:00 [kworker/1:1-cgroup_offline]
+root          35       2  0 02:29 ?        00:00:00 [khugepaged]
+root          36       2  0 02:29 ?        00:00:00 [cryptd]
+root          37       2  0 02:29 ?        00:00:00 [kintegrityd]
+root          38       2  0 02:29 ?        00:00:00 [kblockd]
+root          39       2  0 02:29 ?        00:00:00 [blkcg_punt_bio]
+root          40       2  0 02:29 ?        00:00:00 [tpm_dev_wq]
+root          41       2  0 02:29 ?        00:00:00 [md]
+root          42       2  0 02:29 ?        00:00:00 [edac-poller]
+root          43       2  0 02:29 ?        00:00:00 [watchdogd]
+root          44       2  0 02:29 ?        00:00:00 [kworker/1:1H-kblockd]
+root          51       2  0 02:29 ?        00:00:00 [kworker/u4:3-events_unbound]
+root          68       2  0 02:29 ?        00:00:00 [kswapd0]
+root          71       2  0 02:29 ?        00:00:00 [xfsalloc]
+root          72       2  0 02:29 ?        00:00:00 [xfs_mru_cache]
+root          75       2  0 02:29 ?        00:00:00 [kthrotld]
+root          78       2  0 02:29 ?        00:00:00 [kworker/0:2-events]
+root         122       2  0 02:29 ?        00:00:00 [nvme-wq]
+root         124       2  0 02:29 ?        00:00:00 [nvme-reset-wq]
+root         125       2  0 02:29 ?        00:00:00 [nvme-delete-wq]
+root         132       2  0 02:29 ?        00:00:00 [kworker/u4:4-events_unbound]
+root         152       2  0 02:29 ?        00:00:00 [mld]
+root         153       2  0 02:29 ?        00:00:00 [ipv6_addrconf]
+root         154       2  0 02:29 ?        00:00:00 [kworker/0:1H-kblockd]
+root         156       2  0 02:29 ?        00:00:00 [kworker/u4:5-events_unbound]
+root         158       2  0 02:29 ?        00:00:00 [kworker/u4:6-events_unbound]
+root         174       2  0 02:29 ?        00:00:00 [kstrp]
+root         184       2  0 02:29 ?        00:00:00 [zswap-shrink]
+root         185       2  0 02:29 ?        00:00:00 [kworker/u5:0]
+root         285       2  0 02:29 ?        00:00:00 [kworker/1:2-cgroup_bpf_destroy]
+root         774       2  0 02:29 ?        00:00:00 [xfs-buf/nvme0n1]
+root         775       2  0 02:29 ?        00:00:00 [xfs-conv/nvme0n]
+root         776       2  0 02:29 ?        00:00:00 [xfs-reclaim/nvm]
+root         777       2  0 02:29 ?        00:00:00 [xfs-blockgc/nvm]
+root         778       2  0 02:29 ?        00:00:00 [xfs-inodegc/nvm]
+root         779       2  0 02:29 ?        00:00:00 [xfs-log/nvme0n1]
+root         780       2  0 02:29 ?        00:00:00 [xfs-cil/nvme0n1]
+root         781       2  0 02:29 ?        00:00:00 [xfsaild/nvme0n1p1]
+root         829       1  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root         833       2  0 02:29 ?        00:00:00 [kworker/0:3-events]
+root        1237       2  0 02:29 ?        00:00:00 [kworker/0:4-events]
+root        1240       1  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root        1261       2  0 02:29 ?        00:00:00 [kworker/1:3-events]
+systemd+    1268       1  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd-resolved
+root        1275       1  0 02:29 ?        00:00:00 /sbin/auditd
+root        1285       2  0 02:29 ?        00:00:00 [ena]
+root        1296       2  0 02:29 ?        00:00:00 [rpciod]
+root        1308       2  0 02:29 ?        00:00:00 [xprtiod]
+root        1403       1  0 02:29 ?        00:00:00 /usr/bin/systemd-inhibit --what=handle-suspend-key:handle-hibernate-key --who=noah --why=acpid instead --mode=block /usr/sbin/acpid -f
+root        1406       1  0 02:29 ?        00:00:00 /usr/sbin/irqbalance --foreground
+libstor+    1407       1  0 02:29 ?        00:00:00 /usr/bin/lsmd -d
+root        1410       1  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd-homed
+root        1411       1  0 02:29 ?        00:00:00 /usr/lib/systemd/systemd-logind
+top - 02:33:00 up 3 min,  2 users,  load average: 0.03, 0.04, 0.01
+Tasks: 111 total,   1 running, 110 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.2 st
+MiB Mem :    916.8 total,    528.3 free,    167.7 used,    220.9 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    618.1 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   1834 root      20   0  224052   3472   2784 R   0.3   0.4   0:00.02 top
+      1 root      20   0  106868  17296  10780 S   0.0   1.8   0:00.77 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 slub_flushwq
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 netns
+      7 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0-cgroup_bpf_destroy
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-events_highpri
+      9 root      20   0       0      0      0 I   0.0   0.0   0:00.02 kworker/u4:0-writeback
+     10 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq
+     11 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_kthread
+     12 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_rude_kthread
+     13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_trace_kthread
+     14 root      20   0       0      0      0 S   0.0   0.0   0:00.02 ksoftirqd/0
+     15 root      20   0       0      0      0 I   0.0   0.0   0:00.01 rcu_preempt
+     16 root      rt   0       0      0      0 S   0.0   0.0   0:00.00 migration/0
+     17 root      20   0       0      0      0 I   0.0   0.0   0:00.02 kworker/0:1-cgroup_release
+     18 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+     19 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+     20 root      rt   0       0      0      0 S   0.0   0.0   0:00.02 migration/1
+     21 root      20   0       0      0      0 S   0.0   0.0   0:00.02 ksoftirqd/1
+     22 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0-cgroup_free
+     23 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:0H-events_highpri
+     25 root      20   0       0      0      0 I   0.0   0.0   0:00.14 kworker/u4:1-events_unbound
+     26 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kdevtmpfs
+     27 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 inet_frag_wq
+     28 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kauditd
+     29 root      20   0       0      0      0 S   0.0   0.0   0:00.00 khungtaskd
+     30 root      20   0       0      0      0 S   0.0   0.0   0:00.00 oom_reaper
+     31 root      20   0       0      0      0 I   0.0   0.0   0:00.01 kworker/u4:2-writeback
+     32 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 writeback
+     33 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kcompactd0
+     34 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/1:1-cgroup_offline
+     35 root      39  19       0      0      0 S   0.0   0.0   0:00.00 khugepaged
+     36 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 cryptd
+     37 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kintegrityd
+     38 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kblockd
+     39 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 blkcg_punt_bio
+     40 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 tpm_dev_wq
+     41 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 md
+     42 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 edac-poller
+     43 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 watchdogd
+     44 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/1:1H-kblockd
+     51 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/u4:3-events_unbound
+     68 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kswapd0
+     71 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfsalloc
+     72 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 xfs_mru_cache
+     75 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kthrotld
+     78 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker/0:2-events
+    122 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 nvme-wq
+[root@ip-<EC2-Private IP> ~]#
+[root@ip-<EC2-Private IP> ~]#
+[root@ip-<EC2-Private IP> ~]# top                           - To list the task along with Memory and CPU consume
+
+[root@ip-<EC2-Private IP> ~]# kill  1834                    - To kill the task
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+[root@ip-<EC2-Private IP> ~]#
+[root@ip-<EC2-Private IP> ~]#
+[root@ip-<EC2-Private IP> ~]# kill -9                       - To kill the task forcefully
+
+
+
