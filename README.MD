@@ -11,4 +11,10 @@ Day 4: Ownerships and User Key-based authentication
 Day 5: Process Management
 ```
 
+Week 2
+------
+```
+Day 1: Implementing Small Project using Three Tier Architecture
 
+
+```
